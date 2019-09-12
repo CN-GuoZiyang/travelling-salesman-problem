@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The implement of the tsp problem with only 2d coordinate data
  *
- * Applicable types include: EUC_2D, MAX_2D, MAN 2D, ATT, CEIL_2D and GEO
+ * Applicable types include: EUC_2D, ATT and GEO
  *
  * @author Guo Ziyang
  */

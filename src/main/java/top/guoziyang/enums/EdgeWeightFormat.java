@@ -17,7 +17,7 @@ public enum EdgeWeightFormat {
         this.format = format;
     }
 
-    private String getFormat() {
+    public String getFormat() {
         return format;
     }
 
