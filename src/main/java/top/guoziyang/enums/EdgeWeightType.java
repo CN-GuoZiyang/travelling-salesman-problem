@@ -1,7 +1,7 @@
 package top.guoziyang.enums;
 
 /**
- * the type of the edge weight
+ * The type of the edge weight
  *
  * @author Guo Ziyang
  */

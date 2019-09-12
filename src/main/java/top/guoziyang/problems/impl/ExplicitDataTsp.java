@@ -1,6 +1,7 @@
 package top.guoziyang.problems.impl;
 
 import top.guoziyang.beans.Coord2d;
+import top.guoziyang.enums.DisplayDataType;
 
 import java.util.List;
 
@@ -11,15 +12,21 @@ import java.util.List;
  */
 public class ExplicitDataTsp extends ExplicitTsp {
 
+    private final DisplayDataType displayDataType;
     private final List<Coord2d> displayDataSection;
 
     private ExplicitDataTsp(Builder builder) {
         super(builder);
+        this.displayDataType = builder.displayDataType;
         this.displayDataSection = builder.displayDataSection;
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public DisplayDataType getDisplayDataType() {
+        return displayDataType;
     }
 
     public List<Coord2d> getDisplayDataSection() {
@@ -28,7 +35,13 @@ public class ExplicitDataTsp extends ExplicitTsp {
 
     public static class Builder extends ExplicitTsp.Builder {
 
+        private DisplayDataType displayDataType;
         private List<Coord2d> displayDataSection;
+
+        public Builder displayDataType(DisplayDataType displayDataType) {
+            this.displayDataType = displayDataType;
+            return this;
+        }
 
         public Builder displayDataSection(List<Coord2d> displayDataSection) {
             this.displayDataSection = displayDataSection;
