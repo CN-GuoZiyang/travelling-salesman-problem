@@ -1,5 +1,10 @@
 package top.guoziyang.beans;
 
+/**
+ * data type of 2d coordinate
+ *
+ * @author Guo Ziyang
+ */
 public class Coord2d {
 
     private final int index;

@@ -5,32 +5,44 @@ import top.guoziyang.problems.TSPProblem;
 
 import java.util.List;
 
+/**
+ * The implement of the tsp problem with only 2d coordinate data
+ *
+ * Applicable types include: EUC_2D, MAX_2D, MAN 2D, ATT, CEIL_2D and GEO
+ *
+ * @author Guo Ziyang
+ */
 public class Simple2dTsp extends TSPProblem {
 
     private final List<Coord2d> nodeCoordSection;
 
-    private Simple2dTsp(Simple2dBuilder builder) {
+    private Simple2dTsp(Builder builder) {
         super(builder);
         this.nodeCoordSection = builder.nodeCoordSection;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public List<Coord2d> getNodeCoordSection() {
         return nodeCoordSection;
     }
 
-    public static class Simple2dBuilder extends BaseBuilder<Simple2dBuilder> {
+    public static class Builder extends BaseBuilder<Builder> {
 
         private List<Coord2d> nodeCoordSection;
 
-        public Simple2dBuilder() {
+        Builder() {
             super();
         }
 
-        public Simple2dBuilder nodeCoordSection(List<Coord2d> nodeCoordSection) {
+        public Builder nodeCoordSection(List<Coord2d> nodeCoordSection) {
             this.nodeCoordSection = nodeCoordSection;
             return this;
         }
 
+        @Override
         public Simple2dTsp build() {
             return new Simple2dTsp(this);
         }

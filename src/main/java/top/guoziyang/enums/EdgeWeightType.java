@@ -1,5 +1,10 @@
 package top.guoziyang.enums;
 
+/**
+ * the type of the edge weight
+ *
+ * @author Guo Ziyang
+ */
 public enum EdgeWeightType {
 
     EXPLICIT("EXPLICIT"), EUC_2D("EUC_2D"), EUC_3D("EUC_3D"),

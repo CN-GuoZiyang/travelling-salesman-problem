@@ -1,5 +1,10 @@
 package top.guoziyang.beans;
 
+/**
+ * data type of 3d coordinate
+ *
+ * @author Guo Ziyang
+ */
 public class Coord3d {
 
     private final int index;

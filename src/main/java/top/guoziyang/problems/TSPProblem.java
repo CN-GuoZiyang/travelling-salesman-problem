@@ -2,13 +2,18 @@ package top.guoziyang.problems;
 
 import top.guoziyang.enums.EdgeWeightType;
 
+/**
+ * The base class for the tsp problem
+ *
+ * @author Guo Ziyang
+ */
 public class TSPProblem {
 
     private final String name;
     private final int dimension;
     private final EdgeWeightType edgeWeightType;
 
-    public TSPProblem(BaseBuilder baseBuilder) {
+    protected TSPProblem(BaseBuilder baseBuilder) {
         this.name = baseBuilder.name;
         this.dimension = baseBuilder.dimension;
         this.edgeWeightType = baseBuilder.edgeWeightType;
