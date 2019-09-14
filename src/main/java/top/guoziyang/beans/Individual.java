@@ -29,6 +29,10 @@ public class Individual {
         return order;
     }
 
+    public void setOrder(int[] order) {
+        this.order = order;
+    }
+
     /**
      * Insert mutation
      */
