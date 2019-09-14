@@ -11,7 +11,7 @@ import top.guoziyang.problems.TSPProblem;
 public class ExplicitTsp extends TSPProblem {
 
     private final EdgeWeightFormat edgeWeightFormat;
-    private final int[][] edgeWeightSection;
+    private final int[] edgeWeightSection;
 
     ExplicitTsp(Builder builder) {
         super(builder);
@@ -27,14 +27,14 @@ public class ExplicitTsp extends TSPProblem {
         return edgeWeightFormat;
     }
 
-    public int[][] getEdgeWeightSection() {
+    public int[] getEdgeWeightSection() {
         return edgeWeightSection;
     }
 
     public static class Builder extends BaseBuilder<Builder> {
 
         private EdgeWeightFormat edgeWeightFormat;
-        private int[][] edgeWeightSection;
+        private int[] edgeWeightSection;
 
         Builder() {
             super();
@@ -45,7 +45,7 @@ public class ExplicitTsp extends TSPProblem {
             return this;
         }
 
-        public Builder edgeWeightSection(int[][] edgeWeightSection) {
+        public Builder edgeWeightSection(int[] edgeWeightSection) {
             this.edgeWeightSection = edgeWeightSection;
             return this;
         }

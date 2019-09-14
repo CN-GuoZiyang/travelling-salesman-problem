@@ -66,17 +66,10 @@ public class ConfigReader {
 
     private static TSPProblem handle2dTsp(BufferedReader reader) throws IOException {
         String line;
-        while(!"NODE_COORD_SECTION".equals(line = reader.readLine())) {
+        while (!"NODE_COORD_SECTION".equals(line = reader.readLine())) {
             ;
         }
-        List<Coord2d> nodeCoordSection = new ArrayList<>();
-        //TODO
-        while(!"EOF".equals(line = reader.readLine())) {
-            line = line.trim();
-            String[] splits = line.split("\\s+");
-            Coord2d coord = new Coord2d(Integer.parseInt(splits[0]), Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
-            nodeCoordSection.add(coord);
-        }
+        List<Coord2d> nodeCoordSection = readCoordSection(reader);
         return Simple2dTsp.builder()
                 .nodeCoordSection(nodeCoordSection)
                 .name(name)
@@ -98,16 +91,15 @@ public class ConfigReader {
                 }
                 //TODO
             } else if("EDGE_WEIGHT_SECTION".equals(line)) {
-                int[][] edgeWeightSection = new int[dimension][dimension];
-                int lineIndex = 0;
+                List<Integer> tempList = new ArrayList<>();
                 while(!"EOF".equals(line = reader.readLine())) {
                     line = line.trim();
                     String[] splits = line.split("\\s+");
-                    for(int i = 0; i < splits.length; i ++) {
-                        edgeWeightSection[lineIndex][i] = Integer.parseInt(splits[i]);
+                    for(String split : splits) {
+                        tempList.add(Integer.parseInt(split));
                     }
-                    lineIndex ++;
                 }
+                int[] edgeWeightSection = tempList.stream().mapToInt(Integer::valueOf).toArray();
                 return ExplicitTsp.builder()
                         .edgeWeightFormat(edgeWeightFormat)
                         .edgeWeightSection(edgeWeightSection)
@@ -126,23 +118,16 @@ public class ConfigReader {
         while(!"EDGE_WEIGHT_SECTION".equals(line = reader.readLine())) {
             ;
         }
-        int[][] edgeWeightSection = new int[dimension][dimension];
-        int lineIndex = 0;
+        List<Integer> tempList = new ArrayList<>();
         while(!"DISPLAY_DATA_SECTION".equals(line = reader.readLine())) {
             line = line.trim();
             String[] splits = line.split("\\s+");
-            for(int i = 0; i < splits.length; i ++) {
-                edgeWeightSection[lineIndex][i] = Integer.parseInt(splits[i]);
+            for(String split : splits) {
+                tempList.add(Integer.parseInt(split));
             }
-            lineIndex ++;
         }
-        List<Coord2d> displayDataSection = new ArrayList<>();
-        while(!"EOF".equals(line = reader.readLine())) {
-            line = line.trim();
-            String[] splits = line.split("\\s+");
-            Coord2d coord = new Coord2d(Integer.parseInt(splits[0]), Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
-            displayDataSection.add(coord);
-        }
+        int[] edgeWeightSection = tempList.stream().mapToInt(Integer::valueOf).toArray();
+        List<Coord2d> displayDataSection = readCoordSection(reader);
         return ExplicitDataTsp.builder()
                 .displayDataType(displayDataType)
                 .displayDataSection(displayDataSection)
@@ -152,6 +137,18 @@ public class ConfigReader {
                 .dimension(dimension)
                 .edgeWeightType(edgeWeightType)
                 .build();
+    }
+
+    private static List<Coord2d> readCoordSection(BufferedReader reader) throws IOException {
+        String line;
+        List<Coord2d> nodeCoordSection = new ArrayList<>();
+        while(!"EOF".equals(line = reader.readLine())) {
+            line = line.trim();
+            String[] splits = line.split("\\s+");
+            Coord2d coord = new Coord2d(Integer.parseInt(splits[0]), Double.parseDouble(splits[1]), Double.parseDouble(splits[2]));
+            nodeCoordSection.add(coord);
+        }
+        return nodeCoordSection;
     }
 
 }

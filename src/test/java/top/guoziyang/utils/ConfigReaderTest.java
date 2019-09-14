@@ -38,7 +38,6 @@ public class ConfigReaderTest {
         Assert.assertEquals(58, problem.getDimension());
         Assert.assertEquals("EXPLICIT", problem.getEdgeWeightType().getType());
         Assert.assertEquals("UPPER_ROW", problem.getEdgeWeightFormat().getFormat());
-        Assert.assertEquals(58, problem.getEdgeWeightSection().length);
     }
 
     @Test
