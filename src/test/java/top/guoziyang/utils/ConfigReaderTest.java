@@ -2,8 +2,11 @@ package top.guoziyang.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
+import top.guoziyang.beans.Individual;
 import top.guoziyang.problems.impl.ExplicitTsp;
 import top.guoziyang.problems.impl.Simple2dTsp;
+
+import java.util.Arrays;
 
 public class ConfigReaderTest {
 
@@ -44,5 +47,6 @@ public class ConfigReaderTest {
     public void readExplicitDataTspTest() {
 
     }
+
 
 }
