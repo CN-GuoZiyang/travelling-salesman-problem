@@ -72,7 +72,7 @@ public class Individual {
         do {
             index2 = random.nextInt(order.length);
         } while (index1 == index2);
-        List<Integer> sub = orderList.subList(index1, index2);
+        List<Integer> sub = orderList.subList(Math.min(index1, index2), Math.max(index1, index2));
         orderList.removeAll(sub);
         Collections.reverse(sub);
         orderList.addAll(Math.min(index1, index2), sub);
