@@ -40,12 +40,67 @@ public class CrossoverUtils {
     }
 
     public static Individual[] edgeRecombination(Individual i1, Individual i2) {
-        int length = i1.getOrder().length;
+        int[] i1Order = i1.getOrder();
+        List<Integer> i1List = IntStream.of(i1Order).boxed().collect(Collectors.toList());
+        int[] i2Order = i2.getOrder();
+        List<Integer> i2List = IntStream.of(i2Order).boxed().collect(Collectors.toList());
+        int length = i1Order.length;
         Individual child = new Individual(length);
         List<Integer> childList = new ArrayList<>();
 
         EdgeTable table = new EdgeTable(length);
-        //TODO 未完成Edge Combination
+        for(int i = 1; i <= length; i ++) {
+            EdgeRow row = table.getRow(i);
+            int i1Index = i1List.indexOf(i);
+            int i2Index = i2List.indexOf(i);
+            int[] ps = new int[4];
+            ps[0] = i1List.get(i1Index-1==-1?length-1:i1Index-1);
+            ps[1] = i1List.get(i1Index+1==length?0:i1Index+1);
+            ps[2] = i2List.get(i2Index-1==-1?length-1:i2Index-1);
+            ps[3] = i2List.get(i2Index+1==length?0:i2Index+1);
+            for(int p : ps) {
+                EdgeElement element = row.getElement(p);
+                if(element != null) {
+                    element.common = true;
+                } else {
+                    row.elements.add(new EdgeElement(p, false));
+                }
+            }
+        }
+        int start = random.nextInt(length) + 1;
+        while(childList.size() != length) {
+            childList.add(start);
+            List<EdgeElement> candidates = table.getRow(start).elements;
+            table.deleteNumber(start);
+            start = -1;
+            if(table.rows.size() == 1) {
+                childList.add(table.rows.get(0).number);
+                break;
+            }
+            Map<Integer, Integer> lengthMap = new HashMap<>();
+            out:for(EdgeElement candidate : candidates) {
+                int cIndex = candidate.number;
+                List<EdgeElement> cRowList = table.getRow(cIndex).elements;
+                lengthMap.put(cIndex, cRowList.size());
+                for(EdgeElement element : cRowList) {
+                    if(element.common) {
+                        start = cIndex;
+                        break out;
+                    }
+                }
+            }
+            if(start == -1) {
+                int minIndex = -1;
+                int minLength = length + 1;
+                for(Map.Entry<Integer, Integer> entry : lengthMap.entrySet()) {
+                    if(entry.getValue() < minLength) {
+                        minIndex = entry.getKey();
+                        minLength = entry.getValue();
+                    }
+                }
+                start = minIndex;
+            }
+        }
 
         int[] childOrder = childList.subList(0, 9).stream().mapToInt(Integer::valueOf).toArray();
         child.setOrder(childOrder);
@@ -191,8 +246,8 @@ public class CrossoverUtils {
         List<EdgeRow> rows;
         public EdgeTable(int number) {
             rows = new ArrayList<>();
-            for(int i = 0; i < number; i ++) {
-                rows.add(new EdgeRow(i + 1));
+            for(int i = 1; i <= number; i ++) {
+                rows.add(new EdgeRow(i));
             }
         }
 
@@ -208,6 +263,13 @@ public class CrossoverUtils {
         public void addElement(int number, EdgeElement element) {
             getRow(number).elements.add(element);
         }
+
+        public void deleteNumber(int number) {
+            rows.remove(getRow(number));
+            for(EdgeRow row : rows) {
+                row.deleteNumber(number);
+            }
+        }
     }
 
     static class EdgeRow {
@@ -217,6 +279,22 @@ public class CrossoverUtils {
         public EdgeRow(int number) {
             this.number = number;
             elements = new ArrayList<>();
+        }
+
+        public void deleteNumber(int number) {
+            EdgeElement element = getElement(number);
+            if(element != null) {
+                elements.remove(element);
+            }
+        }
+
+        public EdgeElement getElement(int number) {
+            for(EdgeElement element : elements) {
+                if(element.number == number) {
+                    return element;
+                }
+            }
+            return null;
         }
     }
 
