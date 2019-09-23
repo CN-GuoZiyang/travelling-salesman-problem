@@ -99,16 +99,31 @@ public class TSPProblem {
         EdgeWeightFormat edgeWeightFormat = problem.getEdgeWeightFormat();
         if(EdgeWeightFormat.valueOf("UPPER_ROW") == edgeWeightFormat) {
             if(city1 > city2) {
-
+                int index = city1 * (2 * problem.getDimension() - 1 - city1) / 2 + city2 - 1;
+                return problem.getEdgeWeightSection()[index];
             } else {
-
+                int index = city1 * (2 * problem.getDimension() - 1 - city1) / 2 + city2 - 2;
+                return problem.getEdgeWeightSection()[index];
             }
         } else if(EdgeWeightFormat.valueOf("FULL_MATRIX") == edgeWeightFormat) {
-
+            int index = city1 * problem.getDimension() + city2 - 1;
+            return problem.getEdgeWeightSection()[index];
         } else if(EdgeWeightFormat.valueOf("LOWER_DIAG_ROW") == edgeWeightFormat) {
-
+            int index = -1;
+            if(city1 > city2) {
+                index = city1 * (1 + city1) / 2 + city2 - 1;
+            } else {
+                index = city2 * (1 + city2) / 2 + city1 - 1;
+            }
+            return problem.getEdgeWeightSection()[index];
         } else if(EdgeWeightFormat.valueOf("UPPER_DIAG_ROW") == edgeWeightFormat) {
-
+            int index = -1;
+            if(city1 > city2) {
+                index = city1 * problem.getDimension() + city2 - 1;
+            } else {
+                index = city2 * problem.getDimension() + city1 - 1;
+            }
+            return problem.getEdgeWeightSection()[index];
         }
         return -1;
     }
