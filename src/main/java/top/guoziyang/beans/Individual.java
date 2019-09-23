@@ -1,5 +1,7 @@
 package top.guoziyang.beans;
 
+import top.guoziyang.problems.TSPProblem;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -100,6 +102,21 @@ public class Individual {
             orderList.set(positions.get(i), numbers.get(i));
         }
         order = orderList.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+    /**
+     * Calculate the total distance based on different problems
+     * @param individual the individual
+     * @param problem the tsp problem
+     * @return the total distance
+     */
+    public static double getDistance(Individual individual, TSPProblem problem) {
+        int distance = 0;
+        int[] order = individual.getOrder();
+        for(int i = 0; i < order.length - 1; i ++) {
+            distance += TSPProblem.getDistance(problem, i, i + 1);
+        }
+        return distance;
     }
 
 }
