@@ -27,6 +27,11 @@ public class Individual {
         order = orderList.stream().mapToInt(Integer::valueOf).toArray();
     }
 
+    public Individual(Individual i) {
+        int[] temp = i.getOrder();
+        order = Arrays.copyOfRange(temp, 0, temp.length);
+    }
+
     public int[] getOrder() {
         return order;
     }
@@ -110,7 +115,7 @@ public class Individual {
      * @param problem the tsp problem
      * @return the total distance
      */
-    public static double getDistance(Individual individual, TSPProblem problem) {
+    public static int getDistance(Individual individual, TSPProblem problem) {
         int distance = 0;
         int[] order = individual.getOrder();
         for(int i = 0; i < order.length - 1; i ++) {
