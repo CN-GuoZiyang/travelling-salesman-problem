@@ -3,7 +3,6 @@ package top.guoziyang.problems;
 import top.guoziyang.beans.Coord2d;
 import top.guoziyang.enums.EdgeWeightFormat;
 import top.guoziyang.enums.EdgeWeightType;
-import top.guoziyang.problems.impl.ExplicitDataTsp;
 import top.guoziyang.problems.impl.ExplicitTsp;
 import top.guoziyang.problems.impl.Simple2dTsp;
 

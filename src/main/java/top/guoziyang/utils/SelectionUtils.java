@@ -21,7 +21,7 @@ public class SelectionUtils {
         double[] size = new double[populationLength];
         double sum = 0;
         for(int i = 0; i < populationLength; i ++) {
-            fitness[i] = 1 / Individual.getDistance(parents[i], problem);
+            fitness[i] = 1.0 / Individual.getDistance(parents[i], problem);
             sum += fitness[i];
         }
         for(int i = 0; i < populationLength; i ++) {

@@ -119,8 +119,9 @@ public class Individual {
         int distance = 0;
         int[] order = individual.getOrder();
         for(int i = 0; i < order.length - 1; i ++) {
-            distance += TSPProblem.getDistance(problem, i, i + 1);
+            distance += TSPProblem.getDistance(problem, order[i], order[i + 1]);
         }
+        distance += TSPProblem.getDistance(problem, order[order.length - 1], order[0]);
         return distance;
     }
 
