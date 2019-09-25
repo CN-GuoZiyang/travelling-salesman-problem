@@ -3,14 +3,19 @@ package top.guoziyang.main;
 import top.guoziyang.beans.Individual;
 import top.guoziyang.beans.Population;
 import top.guoziyang.problems.TSPProblem;
+import top.guoziyang.utils.ChartUtils;
 import top.guoziyang.utils.CrossoverUtils;
 import top.guoziyang.utils.SelectionUtils;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 public class Sga {
 
     private Random random = new Random();
+    private JFrame frame = new JFrame();
+    private ChartUtils chartUtils = new ChartUtils();
 
     public void Sga1(TSPProblem problem, int numberOfIndividuals) {
         /*
@@ -25,6 +30,13 @@ public class Sga {
         /*
             generate the init population
          */
+
+        frame.setSize(700, 500);
+        frame.getContentPane().add(chartUtils.getChart(2000, 2000), BorderLayout.CENTER);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null); // 窗口居于屏幕正中央
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         Population population = new Population(numberOfIndividuals, problem.getDimension());
         int generationNum = 1;
         while(true) {
@@ -53,8 +65,10 @@ public class Sga {
                 }
             }
             population = new Population(childIndividuals);
-            if(generationNum % 10 == 0) {
-                System.out.println(population.getLeastDistance(problem));
+            if(generationNum % 1 == 0) {
+                int least = population.getLeastDistance(problem);
+                System.out.println(least);
+                chartUtils.addData(least);
             }
             generationNum ++;
         }
