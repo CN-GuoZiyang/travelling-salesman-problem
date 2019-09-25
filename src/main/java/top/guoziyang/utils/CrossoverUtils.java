@@ -71,12 +71,11 @@ public class CrossoverUtils {
         while(childList.size() != length) {
             childList.add(start);
             List<EdgeElement> candidates = table.getRow(start).elements;
-            table.deleteNumber(start);
-            start = -1;
-            if(table.rows.size() == 1) {
-                childList.add(table.rows.get(0).number);
+            if(candidates.size() == 0) {
                 break;
             }
+            table.deleteNumber(start);
+            start = -1;
             Map<Integer, Integer> lengthMap = new HashMap<>();
             out:for(EdgeElement candidate : candidates) {
                 int cIndex = candidate.number;
@@ -91,9 +90,9 @@ public class CrossoverUtils {
             }
             if(start == -1) {
                 int minIndex = -1;
-                int minLength = length + 1;
+                int minLength = Integer.MAX_VALUE;
                 for(Map.Entry<Integer, Integer> entry : lengthMap.entrySet()) {
-                    if(entry.getValue() < minLength) {
+                    if(entry.getValue() <= minLength) {
                         minIndex = entry.getKey();
                         minLength = entry.getValue();
                     }
