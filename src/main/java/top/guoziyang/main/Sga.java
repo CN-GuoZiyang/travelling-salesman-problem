@@ -16,8 +16,9 @@ public class Sga {
     private Random random = new Random();
     private JFrame frame = new JFrame();
     private ChartUtils chartUtils = new ChartUtils();
+    private int current = -1;
 
-    public void Sga1(TSPProblem problem, int numberOfIndividuals) {
+    public int Sga1(TSPProblem problem, int numberOfIndividuals) {
         /*
             crossover probability
          */
@@ -33,7 +34,7 @@ public class Sga {
 
         frame.setSize(700, 500);
         frame.getContentPane().add(chartUtils.getChart(2000, 2000), BorderLayout.CENTER);
-        frame.setVisible(true);
+        //frame.setVisible(true);
         frame.setLocationRelativeTo(null); // 窗口居于屏幕正中央
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,16 +66,15 @@ public class Sga {
                 }
             }
             population = new Population(childIndividuals);
-            if(generationNum % 1 == 0) {
-                int least = population.getLeastDistance(problem);
-                System.out.println(least);
-                chartUtils.addData(least);
+            //chartUtils.addData(least);
+            if(generationNum == 10000) {
+                return population.getLeastDistance(problem);
             }
             generationNum ++;
         }
     }
 
-    public void Sga2(TSPProblem problem, int numberOfIndividuals) {
+    public int Sga2(TSPProblem problem, int numberOfIndividuals) {
         /*
             crossover probability
          */
@@ -90,7 +90,7 @@ public class Sga {
 
         frame.setSize(700, 500);
         frame.getContentPane().add(chartUtils.getChart(2000, 2000), BorderLayout.CENTER);
-        frame.setVisible(true);
+        // frame.setVisible(true);
         frame.setLocationRelativeTo(null); // 窗口居于屏幕正中央
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,16 +122,15 @@ public class Sga {
                 }
             }
             population = new Population(childIndividuals);
-            if(generationNum % 1 == 0) {
-                int least = population.getLeastDistance(problem);
-                System.out.println(least);
-                chartUtils.addData(least);
+            //chartUtils.addData(least);
+            if(generationNum == 10000) {
+                return population.getLeastDistance(problem);
             }
             generationNum ++;
         }
     }
 
-    public void Sga3(TSPProblem problem, int numberOfIndividuals) {
+    public int Sga3(TSPProblem problem, int numberOfIndividuals) {
         /*
             crossover probability
          */
@@ -147,7 +146,7 @@ public class Sga {
 
         frame.setSize(700, 500);
         frame.getContentPane().add(chartUtils.getChart(2000, 2000), BorderLayout.CENTER);
-        frame.setVisible(true);
+        // frame.setVisible(true);
         frame.setLocationRelativeTo(null); // 窗口居于屏幕正中央
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,10 +178,9 @@ public class Sga {
                 }
             }
             population = new Population(childIndividuals);
-            if(generationNum % 1 == 0) {
-                int least = population.getLeastDistance(problem);
-                System.out.println(least);
-                chartUtils.addData(least);
+            //chartUtils.addData(least);
+            if(generationNum == 10000) {
+                return population.getLeastDistance(problem);
             }
             generationNum ++;
         }

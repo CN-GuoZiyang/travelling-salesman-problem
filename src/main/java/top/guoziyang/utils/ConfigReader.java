@@ -89,7 +89,6 @@ public class ConfigReader {
                 if(displayDataType != DisplayDataType.NO_DISPLAY) {
                     return handleExplicitDataTsp(reader);
                 }
-                //TODO
             } else if("EDGE_WEIGHT_SECTION".equals(line)) {
                 List<Integer> tempList = new ArrayList<>();
                 while(!"EOF".equals(line = reader.readLine())) {
