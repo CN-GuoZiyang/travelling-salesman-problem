@@ -17,7 +17,8 @@ before_script:
 build:
   stage: build
   script: gradle --build-cache assemble
-  tags: java
+  tags: 
+    - java
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -28,7 +29,8 @@ build:
 test:
   stage: test
   script: gradle check
-  tags: java
+  tags: 
+    - java
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
